@@ -13,7 +13,7 @@ export default props => {
             <Text style={{color: '#fff'}}> 
                 Lista de {props.nome}:
             </Text>
-            {carregaLista()}
+            {/*carregaLista()*/}
             <Text></Text>
             {props.lista.map(p=> {
                 return <Text key = {p.id}  style={{color: '#fff'}}> {p.id} - {p.nome} - preço R$ {p.preco}
