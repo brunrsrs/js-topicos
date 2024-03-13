@@ -4,22 +4,18 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import {MeuComponente, somar} from './Compoente/meuComponente';
 import ListaProdutos from './Compoente/ListaProdutos';
 import produtos from './Compoente/produtos';
+import {X, Y} from './Compoente/MyButton';
+import Contador from './Compoente/Contador';
 
 export default function App() {
+  const [mostrarMensagem, setMostraMensagem] = React.useState(false);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
         Texto na main 
       </Text>
 
-      <Button
-        title="BUTÃO"
-        onPress={() =>
-          produtos.map(p=> {
-            return <Text key = {p.id} style={{color: '#fff'}}> {p.id} - {p.nome} - preço R$ {p.preco} </Text>
-        })
-        }
-      />
 
       <Text style = {styles.text}>
         Soma: {somar(2,3)}
@@ -30,8 +26,34 @@ export default function App() {
 
       <Text></Text>
 
-      <ListaProdutos lista = {produtos} nome = 'aaaa'>
-      </ListaProdutos>
+      {/* <MyButton 
+        label = "OK"
+        onClick = {()=> {console.warn("Testando")}}
+      /> */}
+
+      <Y 
+      label = "OK"
+      onClick = {()=>{console.warn("Teste")}}
+      />
+
+      <X 
+      label = "OK"
+      onClick = {()=>{console.warn("Teste")}}
+      />
+
+
+      <Text></Text>
+
+      <Contador passo="1094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210109481321875918759219421010948132187591875921942101094813218759187592194210" inicial = "0"/>
+
+      <Text></Text>
+      <Button
+        title="Mostrar lista"
+        onPress={() =>
+          {setMostraMensagem(!mostrarMensagem)}}
+      />
+
+      {mostrarMensagem && <ListaProdutos lista={produtos} nome="produts"/>}
     
       <Text></Text>
 
