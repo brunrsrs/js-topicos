@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Text, Button, TextInput } from 'react-native';
+import ContadorDisplay from './ContadorDisplay';
 
 export default props=> {
     // let numero = props.inicial
@@ -21,7 +22,13 @@ export default props=> {
 
     return (
         <>
-            <Text style = {{fontSize: 35, color: '#fff'}}>{numero}</Text>
+
+
+            <ContadorDisplay numero={0}/>
+    
+    
+    
+            {/* <Text style = {{fontSize: 35, color: '#fff'}}>{numero}</Text>
             <Button title = "+" onPress = {inc}/>
             <Button title = "-" onPress = {dec}/>
             <TextInput
@@ -30,7 +37,7 @@ export default props=> {
                 placeholder='inciiazlia'
                 onChangeText={handleTextChange}
                 value = {numero.toString()}
-            />
+            /> */}
         </>
     )
 }
