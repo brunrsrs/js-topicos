@@ -23,13 +23,15 @@ export const Y = props => {
 
 const style = StyleSheet.create ({
     botao: {
-        fontSize: 40,
-        height: Dimensions.get('window').width/4,
-        width: Dimensions.get('window').width/4,
-        padding: 20,
+        fontSize: 10,
+        fontWeight: 'bold',
+        height: Dimensions.get('window').width/8,
+        width: 15,
+        padding: 17,
         backgroundColor: 'pink',
         textAlign: 'center',
-        borderWidth: 1,
-        borderColor: '#000'
+        borderWidth: 5,
+        borderColor: 'white'
+        
     }
 })
