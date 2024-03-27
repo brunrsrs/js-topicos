@@ -14,6 +14,7 @@ import Familia from './Compoente/Familia';
 import Membro from './Compoente/Membro';
 import UsuarioLogado from './Compoente/UsuarioLogado';
 import FlexBox from './Compoente/FlexBox';
+import Mega from './Compoente/Mega';
 
 export default function App() {
   const [mostrarMensagem, setMostraMensagem] = React.useState(false);
@@ -42,6 +43,8 @@ export default function App() {
       />
 
       <FlexBox></FlexBox>
+
+      <Mega></Mega>
 
       <Alerta></Alerta>
 

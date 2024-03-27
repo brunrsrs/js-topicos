@@ -17,6 +17,7 @@ export default props => {
 const styles = StyleSheet.create( {
     FlexV1: {
         flex: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
         backgroundColor: '#109'
     }
