@@ -1,19 +1,24 @@
 import React, { Component } from "react";
-import { View, Text, ImageBackground, StyleSheet, Platform, FlatList } from "react-native";
+import { View, Text, ImageBackground, StyleSheet, Platform, FlatList, TouchableOpacity } from "react-native";
 import moment from "moment/moment";
 import 'moment/locale/pt-br';
 import todayImage from '../assets/imgs/today.jpg';
 import commonStyles from '../CommonStyles';
 import Task from "../components/Task";
+import Icon from "react-native-vector-icons/FontAwesome";
+import AddTask from "./AddTask";
 
 export default class TaskList extends Component {
     state = {
         tasks: [{
             id:Math.random(),
-            desc: 'Comprar Livro História',
+            desc: 'Morrer',
             estimateAt: new Date(),
             doneAt: new Date(),
-        }]
+        }],
+        showDoneTasks: true,
+        visibleTasks: [],
+        showAddTask: false,
     }
 
     toggleTask = (taskId) => {
@@ -26,11 +31,49 @@ export default class TaskList extends Component {
         this.setState({tasks: tasks}, this.filterTasks); 
     }
 
+    toggleFilter = () => {
+        this.setState({ showDoneTasks: !this.state.showDoneTasks }, this.filterTasks);
+    };
+
+    componentDidMount = () => {
+        this.filterTasks();
+    };
+
+    filterTasks = () => {
+        let visibleTasks = null;
+        if (this.state.showDoneTasks) {
+            visibleTasks = [...this.state.tasks];
+        } else {
+            const pending = (task) => task.doneAt === null;
+            visibleTasks = this.state.tasks.filter(pending);
+        }
+        this.setState({visibleTasks});
+    }
+
+    getColor = () => {
+        switch(this.props.daysAhead) {
+            case 0: return commonStyles.colors.today
+            case 1: return commonStyles.colors.tomorrow
+            case 7: return commonStyles.colors.week
+            default: return commonStyles.colors.month
+        }
+    }
+
+
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
         return (
             <View style = {styles.container}>
+                <AddTask isVisible = {this.state.showAddTask}
+                        onCancel = {() => this.setState({showAddTask: false})}
+                        onSave={this.addTask} />
                 <ImageBackground source={todayImage} style={styles.background}>
+                    <View style={styles.iconBar}>
+                        <TouchableOpacity onPress={this.toggleFilter}>
+                            <Icon name= {this.state.showDoneTasks ? 'eye' : 'eye-slash'}
+                                    size={25} color={commonStyles.colors.secondary} />
+                        </TouchableOpacity>
+                    </View>
                     <View style = {styles.titleBar}>
                         <Text style = {styles.title}>Hoje</Text>
                         <Text style = {styles.subtitle}>{today}</Text>
@@ -40,15 +83,20 @@ export default class TaskList extends Component {
                     {/* <Task desc = "Trabalho" estimateAt = {new Date()} doneAt={null}></Task> */}
                     {/* renderizando a lista de tarefas utilizando FlatList */}
                     <FlatList
-                        data = {this.state.tasks}
+                        data = {this.state.visibleTasks}
                         keyExtractor = {(item) => `${item.id}` }
                         renderItem={({ item }) => <Task {...item} onToggleTask = {this.toggleTask}/>}
                     />
+                    <TouchableOpacity style = {[styles.addButton,
+                                        {backgroundColor: this.getColor() }]}
+                                        activeOpacity={0.7}
+                                        onPress = {() => this.setState({showAddTask: true})}>
+                        <Icon name = "plus" size={20} color = {commonStyles.colors.secondary} />
+                    </TouchableOpacity>
                 </View>
             </View>
         );
     }
-
 };
 
 
