@@ -1,5 +1,5 @@
 import Icon from "react-native-vector-icons/FontAwesome";
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, Text, StyleSheet, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
 import moment from "moment";
 import 'moment/locale/pt-br';
 import CommonStyles from "../CommonStyles";
@@ -20,6 +20,12 @@ export default(props) => {
                 <Text style={[styles.desc, doneOrNotStyle]}>{props.desc}</Text>
                 <Text style={styles.date}>{formattedDate}</Text>
             </View>
+            <TouchableOpacity style = {[styles.deleteButton,
+                                        {backgroundColor: 'red' }]}
+                                        activeOpacity={0.7}
+                                        onPress = {() => deleteTask(this.id)}>
+                        <Icon name = "whatsapp" size={15} color = {CommonStyles.colors.secondary} />
+            </TouchableOpacity>
         </View>
     );
 };
@@ -36,6 +42,16 @@ function getCheckView(doneAt) {
     }
 }
 
+deleteTask = (id) => {
+    const tasks = [...this.state]
+    
+    tasks.filter({
+        
+    })
+
+    this.setState({ tasks, showAddTask: false}, this.filterTasks)
+}   
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
@@ -49,6 +65,15 @@ const styles = StyleSheet.create({
         width: '20%',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    deleteButton: {
+        position: 'absolute',
+        right: 30,
+        width: '10%',
+        height: 25,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     pending: {
         height: 25,
