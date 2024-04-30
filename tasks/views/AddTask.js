@@ -10,9 +10,20 @@ export default class AddTask extends Component {
     state = {
         ...initialState
     }
+
     // Método 'save' da classe 'AddTask'
     save = () => {
-        
+    //cria um novo objeto 'new task' com os valores atuais
+        const newTask = {
+            desc: this.state.desc,
+            date: this.state.date
+        }
+    //verifica se a propriedade 'onsave' foi passada como prop para o componente e
+    //se sim, chama a função 'onSave' com o objeto 'newTask' como argumento
+        this.props.onSave && this.props.onSave(newTask)
+    
+    //define o estado do componente de volta para o estado
+        this.setState({...initialState})
     }
 
     getDatePicker = () => {

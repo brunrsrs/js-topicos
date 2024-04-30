@@ -12,7 +12,7 @@ export default class TaskList extends Component {
     state = {
         tasks: [{
             id:Math.random(),
-            desc: 'Morrer',
+            desc: 'Fazer tarefa',
             estimateAt: new Date(),
             doneAt: new Date(),
         }],
@@ -59,6 +59,26 @@ export default class TaskList extends Component {
         }
     }
 
+    addTask = newTask => {
+        //verifica se a descrição da nova tarefa é vazia ou contem apenas espaços em branco
+        if (!newTask.desc || !newTask.desc.trim()) {
+            Alert.alert('Dados inválidos', 'Descrição não informada!')
+            return
+        }
+        const tasks = [...this.state.tasks]
+
+        //adiciona a nova tarefa a lista de tarefas
+        tasks.push({
+            id: Math.random(),
+            desc: newTask.desc,
+            estimateAt: newTask.date,
+            doneAt: null
+        })
+
+        //atualiza o estado com a nova lista de tarefas e fecha o modal
+        this.setState({ tasks, showAddTask: false}, this.filterTasks)
+    }
+
 
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
@@ -91,7 +111,7 @@ export default class TaskList extends Component {
                                         {backgroundColor: this.getColor() }]}
                                         activeOpacity={0.7}
                                         onPress = {() => this.setState({showAddTask: true})}>
-                        <Icon name = "plus" size={20} color = {commonStyles.colors.secondary} />
+                        <Icon name = "bath" size={20} color = {commonStyles.colors.secondary} />
                     </TouchableOpacity>
                 </View>
             </View>
